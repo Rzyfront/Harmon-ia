@@ -10,7 +10,7 @@ interface ListItemsProps {
     href: string;
 }
 
-function ListItems({image, name, href}: ListItemsProps): JSX.Element {
+function ListItems({image, name, href}: ListItemsProps){
     const router = useRouter();
     
     const onClick = () => {
