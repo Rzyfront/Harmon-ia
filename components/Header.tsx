@@ -7,6 +7,11 @@ import { RxCaretLeft,RxCaretRight } from 'react-icons/rx';
 import Button from './Button';
 import { HiHome } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
+import useAuthModal from '@/hooks/useAuthModal';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useUser } from '@/hooks/useUser';
+import { FaUserAlt } from 'react-icons/fa';
+import { toast } from 'react-hot-toast';
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -15,9 +20,20 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({children,className}) => {
   const router = useRouter();
+  const { onOpen } = useAuthModal();
+  const  supabaseClient = useSupabaseClient();
+  const { user } = useUser();
 
-  const handleLogout = () =>{
-
+  const handleLogout = async () =>{
+    
+    const { error }  = await supabaseClient.auth.signOut();
+    //Refrescar lista de canciones
+    router.refresh(); 
+    if(error){
+      toast.error(error.message);
+    }else{
+      toast.success('Logged out successfully')
+    }
   }
   return (
     <div className={twMerge(`
@@ -112,6 +128,34 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     items-center
     gap-x-4
     '>
+      {user ? (
+        <div className='
+        flex
+        gap-x-4
+        items-center
+        '>
+          <Button
+          onClick={handleLogout}
+          className='
+          bg-white
+          px-6
+          py-2
+          '
+          >
+          Logout
+          </Button>
+          <Button
+          onClick={()=> router.push('/account')}
+          className='
+          bg-white
+          px-3
+          py-3
+          '
+          >
+          <FaUserAlt/>
+          </Button>
+        </div>
+      ): (
        <>
     <div>
       <Button
@@ -120,6 +164,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       text-neutral-300
       font-medium
       '
+      onClick={onOpen}
       >
         Sing In
       </Button>
@@ -129,11 +174,14 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       bg-white
       px-5
       py-2
-      '>
+      '
+      onClick={onOpen}
+      >
         Sing In
       </Button>
     </div>
     </>
+    )}
     </div>
 
 

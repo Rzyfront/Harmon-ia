@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {FaPlay} from 'react-icons/fa'
+import { useUser } from "@/hooks/useUser";
+import useAuthModal from "@/hooks/useAuthModal";
 
 interface ListItemsProps {
     image: string;
@@ -12,13 +14,20 @@ interface ListItemsProps {
 
 function ListItems({image, name, href}: ListItemsProps){
     const router = useRouter();
-    
+    const authModal = useAuthModal();
+    const {user} = useUser();
+
     const onClick = () => {
+        if (!user) {
+            return authModal.onOpen();
+        }
         router.push(href);
     }
 
   return (
-    <button className="
+    <button 
+    onClick={onClick}
+    className="
     relative
     group
     flex

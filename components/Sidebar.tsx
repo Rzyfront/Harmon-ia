@@ -4,16 +4,22 @@ import {usePathname} from 'next/navigation';
 import { useMemo } from 'react';
 import {HiHome} from 'react-icons/hi';
 import {BiSearch} from 'react-icons/bi';
+import {IoCreateOutline} from 'react-icons/io5';
 import Box from './Box';
 import SidebarItem from './SidebarItem';
 import Library from './Library';
+import { Song } from '@/types';
+import usePlayer from '@/hooks/usePlayer';
+import { twMerge } from 'tailwind-merge';
 
 interface SidebarProps  {
     children: React.ReactNode;
+    songs: Song[]
 }
 
-const Sidebar: React.FC<SidebarProps> = ({children}) => {
+const Sidebar: React.FC<SidebarProps> = ({children, songs}) => {
     const pathname = usePathname();
+    const player = usePlayer();
 
     const routes = useMemo(()=>[
         {
@@ -27,12 +33,22 @@ const Sidebar: React.FC<SidebarProps> = ({children}) => {
             label: 'Search',
             active: pathname === '/search',
             href: '/search'
+        },
+        {
+            icon: IoCreateOutline,
+            label: 'Make',
+            active: pathname === '/search',
+            href: '/make'
         }
     ],[pathname])
     
     return (
 
-    <div className='flex h-full'>
+    <div className={twMerge(`
+    flex
+    h-full
+    `,
+    player.activeId && "h-[calc(100%-90px)]")}>
         <div className='
         hidden
         md:flex
@@ -62,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({children}) => {
                 </div>
             </Box>
             <Box className='overflow-y-auto h-full'>
-                <Library/>
+                <Library songs={songs}/>
             </Box>
         </div>
         <main className='h-full overflow-y-auto flex-1 py-2'>
