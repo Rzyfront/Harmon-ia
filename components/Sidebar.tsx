@@ -11,6 +11,8 @@ import Library from './Library';
 import { Song } from '@/types';
 import usePlayer from '@/hooks/usePlayer';
 import { twMerge } from 'tailwind-merge';
+import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 interface SidebarProps  {
     children: React.ReactNode;
@@ -20,6 +22,7 @@ interface SidebarProps  {
 const Sidebar: React.FC<SidebarProps> = ({children, songs}) => {
     const pathname = usePathname();
     const player = usePlayer();
+    const router = useRouter();
 
     const routes = useMemo(()=>[
         {
@@ -41,6 +44,14 @@ const Sidebar: React.FC<SidebarProps> = ({children, songs}) => {
             href: '/make'
         }
     ],[pathname])
+
+    const handlerClickLogo = ()=>{
+        if(pathname !== '/'){
+            router.replace('/');
+        }else{
+            router.refresh();
+        }
+    }
     
     return (
 
@@ -60,6 +71,19 @@ const Sidebar: React.FC<SidebarProps> = ({children, songs}) => {
         p-2
         '>
             <Box>
+                <div 
+                title='Back to home'
+                onClick={handlerClickLogo}
+                className=' flex items-center mx-3 my-2 gap-3 hover:bg-neutral-800 rounded-md h-[50px] cursor-pointer '>
+                    <Image
+                    src='/images/Harmon-IA.webp'
+                    alt='Hharmon-IA'
+                    width='45'
+                    height='45'
+                    className=' rounded-md w-[30px] h-[30px] mx-2'
+                    />
+                    <h1 className=' flex justify-center items-center text-2xl text-center'>Harmon-IA</h1>
+                </div>
                 <div className='
                 flex
                 flex-col

@@ -13,6 +13,8 @@ import { useUser } from '@/hooks/useUser';
 import { FaUserAlt } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import usePlayer from '@/hooks/usePlayer';
+import Link from 'next/link';
+import { IoCreateOutline } from 'react-icons/io5';
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -38,6 +40,8 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       toast.success('Logged out successfully')
     }
   }
+
+  
   return (
     <div className={twMerge(`
     h-fit
@@ -100,7 +104,9 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     gap-x-2
     items-center
     '>
-      <button className='
+      <Link
+      href={'/'}
+      className='
       rounded-full
       p-2
       bg-white
@@ -111,8 +117,10 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       transition
       '>
         <HiHome className='text-black' size={20}/>
-      </button>
-      <button className='
+      </Link>
+      <Link 
+      href={'/search'}
+      className='
       rounded-full
       p-2
       bg-white
@@ -123,7 +131,21 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       transition
       '>
         <BiSearch className='text-black' size={20}/>
-      </button>
+      </Link>
+      <Link 
+      href={'/make'}
+      className='
+      rounded-full
+      p-2
+      bg-white
+      flex
+      items-center
+      justify-center
+      hover:opacity-75
+      transition
+      '>
+        <IoCreateOutline className='text-black' size={20}/>
+      </Link>
     </div>
     <div className='
     flex
