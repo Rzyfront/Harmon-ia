@@ -108,7 +108,8 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     '>
       <div className=' flex items-center justify-center gap-x-3'>
       <div className=' flex items-center justify-center w-[50px] h-[50px] hover:to-neutral-700'>
-        <MdMenu color='white' size={40}/>
+        <MdMenu color='white' size={45} className=' hover:scale-105
+      active:scale-105'/>
       </div>
       
          <Link
@@ -119,7 +120,8 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       items-center
       justify-center
       hover:shadow-md
-      hover:scale-110
+      hover:scale-105
+      active:scale-105
       transition
       '>
         <Image 
@@ -193,7 +195,6 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
           bg-white
           px-6
           py-2
-          truncate
           '
           >
           Logout
