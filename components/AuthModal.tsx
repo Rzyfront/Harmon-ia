@@ -44,8 +44,8 @@ function AuthModal() {
         supabaseClient={supabaseClient}
         appearance={{
              style: {
-        button: { background: 'red', color: 'white' },
-        anchor: { color: 'blue' },
+        button: { background: '#1e3a8a', color: 'white'},
+        anchor: { color: 'white' },
         //..
       },
             theme: ThemeSupa,
