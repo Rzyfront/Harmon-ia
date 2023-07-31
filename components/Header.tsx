@@ -191,7 +191,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       '
       onClick={onOpen}
       >
-        Sing In
+        Sing Up
       </Button>
     </div>
     <div>
