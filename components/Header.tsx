@@ -14,6 +14,8 @@ import { FaUserAlt } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import usePlayer from '@/hooks/usePlayer';
 import Link from 'next/link';
+import Image from 'next/image';
+import {MdMenu,MdMenuOpen} from 'react-icons/md'
 import { IoCreateOutline } from 'react-icons/io5';
 
 interface HeaderProps {
@@ -104,7 +106,33 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     gap-x-2
     items-center
     '>
-      <Link
+      <div className=' flex items-center justify-center gap-x-3'>
+      <div className=' flex items-center justify-center w-[50px] h-[50px] hover:to-neutral-700'>
+        <MdMenu color='white' size={40}/>
+      </div>
+      
+         <Link
+      href={'/'}
+      className='
+      rounded-md
+      flex
+      items-center
+      justify-center
+      hover:shadow-md
+      hover:scale-110
+      transition
+      '>
+        <Image 
+        className=' rounded-md'
+        alt='Harmon-IA'
+        src={'/images/Harmon-IA.webp'}
+        width={50}
+        height={50}/>
+      </Link>
+
+      </div>
+     
+      {/* <Link
       href={'/'}
       className='
       rounded-full
@@ -145,7 +173,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       transition
       '>
         <IoCreateOutline className='text-black' size={20}/>
-      </Link>
+      </Link> */}
     </div>
     <div className='
     flex
@@ -165,6 +193,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
           bg-white
           px-6
           py-2
+          truncate
           '
           >
           Logout
