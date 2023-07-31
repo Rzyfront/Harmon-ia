@@ -24,12 +24,12 @@ function PageContent({songs}: PageContentProps) {
     <div
     className='
     grid
-    grid-col-2
+    grid-cols-2
     sm:grid-cols-3
     md:grid-cols-3
     lg:grid-cols-4
     xl:grid-cols-5
-    2xl:grid-cols-7
+    2xl:grid-cols-6
     gap-4
     mt-4'
     >

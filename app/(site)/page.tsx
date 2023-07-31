@@ -37,7 +37,7 @@ export default async function Home() {
       mt-4
       ">
         <ListItems 
-        image="/images/liked.png"
+        image="/images/liked.webp"
         name="Liked Songs"
         href="liked"
         />

@@ -41,9 +41,13 @@ function AuthModal() {
         <Auth
         theme="dark"
         providers={['github','google']}
-        magicLink
         supabaseClient={supabaseClient}
         appearance={{
+             style: {
+        button: { background: 'red', color: 'white' },
+        anchor: { color: 'blue' },
+        //..
+      },
             theme: ThemeSupa,
             variables:{
                 default:{
