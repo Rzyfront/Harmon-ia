@@ -9,7 +9,7 @@ function PlayButtom() {
     rounded-full
     flex
     items-center
-    bg-blue-700
+    bg-blue-500
     p-4
     drop-shadow-md
     translate

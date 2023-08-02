@@ -63,7 +63,7 @@ function ListItems({image, name, href}: ListItemsProps){
         flex
         items-center
         justify-center
-        bg-blue-600
+        bg-blue-500
         p-4
         drop-shadow-md
         right-5

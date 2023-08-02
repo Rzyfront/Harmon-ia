@@ -51,9 +51,11 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     <div className={twMerge(`
     h-fit
     bg-gradient-to-b
-    from-blue-900
-    px-6
+    from-blue-500
+    px-4
     py-4
+    md:px-6
+    md:py-4
     `,
     className)}>
 
@@ -107,15 +109,16 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     <div className='
     flex
     md:hidden
-    gap-x-2
+    gap-x-1
+    md:gap-x-2
     items-center
     '>
-      <div className=' flex items-center justify-start gap-x-2'>
+      <div className=' flex items-center justify-start gap-x-0 md:gap-x-2'>
       
       <div 
       onClick={toggleSideBar.openSidebar}
-      className=' flex items-center justify-center w-[50px] h-[50px] hover:opacity-80  hover:bg-blue-950
-      active:bg-blue-950 rounded-md'>
+      className=' flex items-center justify-center w-[40px] h-[40px] md:w-[50px] md:h-[50px] hover:opacity-80  hover:bg-blue-600
+      active:bg-blue-600 rounded-md'>
         <MdMenu
         onClick={toggleSideBar.openSidebar}
         color='white'
@@ -130,11 +133,12 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       flex
       items-center
       justify-center
-      p-2
+      p-1
+      md:p-2
       gap-x-1
       hover:shadow-md
-      hover:bg-blue-950
-      active:bg-blue-950
+      hover:bg-blue-600
+      active:bg-blue-6000
       transition
       '>
         <Image 
@@ -156,7 +160,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     items-center
     gap-x-4
     '>
-      {user ? (
+      {!user ? (
         <div className='
         flex
         gap-x-4

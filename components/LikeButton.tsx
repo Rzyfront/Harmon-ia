@@ -84,7 +84,7 @@ function LikeButton({songId}: LikeButtonProps) {
     hover:opacity-75
     transition
     ">
-        <Icon color={isLiked ? '005EFF' : 'white'} size={25}/>
+        <Icon color={isLiked ? '3B82F6' : 'white'} size={25}/>
     </button>
   )
 }
