@@ -49,6 +49,7 @@ const handleClick = ()=>{
         fill
         src={imageUrl || '/public/images/Music.png'}
         alt="MytracksSongs"
+        sizes="48px"
         className="
         object-cover
         "/>

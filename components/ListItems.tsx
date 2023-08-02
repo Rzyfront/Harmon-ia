@@ -45,7 +45,7 @@ function ListItems({image, name, href}: ListItemsProps){
         min-h-[64px]
         min-w-[64px]
         ">
-            <Image className="object-cover" fill src={image} alt="Imagen"/>
+            <Image className="object-cover" fill src={image} alt="Imagen" sizes="64px"/>
         </div>
         <p className="
         font-medium

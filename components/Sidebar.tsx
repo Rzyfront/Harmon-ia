@@ -15,6 +15,7 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import useToggleSideBar from '@/hooks/useToggleSideBar';
 import { MdMenu,MdMenuOpen } from 'react-icons/md';
+import SidebarPhone from './SidebarPhone';
 
 
 interface SidebarProps  {
@@ -56,14 +57,16 @@ const Sidebar: React.FC<SidebarProps> = ({children, songs}) => {
             router.refresh();
         }
     }
-    
+    console.log(toggleSideBar.isOpen)
     return (
 
     <div className={twMerge(`
     flex
+    relative
     h-full
     `,
     player.activeId && "h-[calc(100%-90px)]")}>
+
         {toggleSideBar.isOpen ? (
         <div className='
         hidden
@@ -79,7 +82,7 @@ const Sidebar: React.FC<SidebarProps> = ({children, songs}) => {
                 <div className=' flex mx-3 my-2'>
 
                     <div 
-                    title='Back to home'
+                    title='Menu'
                     onClick={toggleSideBar.closeSidebar}
                     className=' flex items-center justify-center gap-2 hover:bg-neutral-800 rounded-md h-[50px] w-[50px] cursor-pointer '>
                         <MdMenuOpen 
@@ -98,9 +101,10 @@ const Sidebar: React.FC<SidebarProps> = ({children, songs}) => {
                         <Image
                         src='/images/Harmon-IA.webp'
                         alt='Hharmon-IA'
-                        width='45'
-                        height='45'
-                        className=' rounded-md w-[30px] h-[30px]s'
+                        sizes='45px'
+                        width={45}
+                        height={45}
+                        className=' rounded-md w-[30px] h-[30px]'
                         />
                         <h1 className=' flex justify-center items-center text-2xl text-center'>Harmon-IA</h1>
                     </div>
@@ -152,14 +156,6 @@ const Sidebar: React.FC<SidebarProps> = ({children, songs}) => {
                      hover:scale-105
                      active:scale-105
                      '/>
-                    {/* <Image
-                    src='/images/Harmon-IA.webp'
-                    alt='Hharmon-IA'
-                    width='45'
-                    height='45'
-                    className=' rounded-md w-[30px] h-[30px] mx-2'
-                    />
-                    <h1 className=' flex justify-center items-center text-2xl text-center'>Harmon-IA</h1> */}
                 </div>
                 <div className='
                 flex
@@ -183,7 +179,10 @@ const Sidebar: React.FC<SidebarProps> = ({children, songs}) => {
                 <Library songs={songs}/>
             </Box>): ''}
         </div>)}
-        {}
+        {toggleSideBar.isOpen ?(<SidebarPhone songs={songs}/>
+        ):(
+        '')}
+
         <main className='h-full overflow-y-auto flex-1 py-2'>
             {children}
         </main>

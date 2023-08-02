@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
   const { onOpen } = useAuthModal();
   const  supabaseClient = useSupabaseClient();
   const { user } = useUser();
-  const toogleSlider = useToggleSideBar();
+  const toggleSideBar = useToggleSideBar();
 
   const handleLogout = async () =>{
     
@@ -113,11 +113,14 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       <div className=' flex items-center justify-start gap-x-2'>
       
       <div 
-      onClick={toogleSlider.closeSidebar}
+      onClick={toggleSideBar.openSidebar}
       className=' flex items-center justify-center w-[50px] h-[50px] hover:opacity-80  hover:bg-blue-950
       active:bg-blue-950 rounded-md'>
-        <MdMenu color='white' size={40} className=' hover:scale-105
-      active:scale-105'/>
+        <MdMenu
+        onClick={toggleSideBar.openSidebar}
+        color='white'
+        size={40}
+        className=' hover:scale-105 active:scale-105'/>
       </div>
       
          <Link
@@ -138,6 +141,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
         className=' rounded-md'
         alt='Harmon-IA'
         src={'/images/Harmon-IA.webp'}
+        sizes='35px'
         width={35}
         height={35}/>
         <h1 className=' text-white'>Harmon-IA</h1>
