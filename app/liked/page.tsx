@@ -38,7 +38,7 @@ async function Liked() {
                     fill
                     alt="Liked Songs"
                     className="object-cover"
-                    src="/images/liked.png"
+                    src="/images/liked.webp"
                     />
                 </div>
                 <div className="
