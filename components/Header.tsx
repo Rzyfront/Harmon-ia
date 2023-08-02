@@ -160,7 +160,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     items-center
     gap-x-4
     '>
-      {!user ? (
+      {user ? (
         <div className='
         flex
         gap-x-4
