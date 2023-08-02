@@ -98,8 +98,8 @@ function UploadModal() {
 
   return (
     <Modal
-    title='Upload Modal Title'
-    description='Upload modal description'
+    title='¡Upload your music now!'
+    description='Add all the information of the song'
     isOpen={uploadModal.isOpen}
     onChange={onChange}>
         <form
