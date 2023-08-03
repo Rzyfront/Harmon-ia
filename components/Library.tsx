@@ -36,7 +36,10 @@ const Library = ({songs}: LibraryProps) => {
     }
   return (
     <div className='flex flex-col'>
-        <div className='flex items-center justify-between px-5 pt-5'>
+        <div 
+        onClick={onClick}
+        title='Add your songs'
+        className='flex items-center justify-between px-5 py-4 hover:bg-neutral-800 active:bg-neutral-800 rounded-md cursor-pointer'>
             <div className='inline-flex items-center gap-x-2'>
                 <TbPlaylist className="text-neutral-400" size={26}/>
                 <p
@@ -48,13 +51,14 @@ const Library = ({songs}: LibraryProps) => {
                 >Your Library</p>
             </div>
             <AiOutlinePlus
-            size={20}
-            onClick={onClick}
+            size={25}
             className='
             text-neutral-400
             curso-pointer
             hover:text-white
             transition
+            active:text-blue-600
+            hover:rotate-180
             '
             />
         </div>
@@ -62,7 +66,7 @@ const Library = ({songs}: LibraryProps) => {
         flex
         flex-col
         gap-y-2
-        mt-4
+        mt-2
         px-3
 
         '>

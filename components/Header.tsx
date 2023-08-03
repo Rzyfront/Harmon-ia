@@ -5,8 +5,6 @@ import {useRouter} from 'next/navigation'
 import { twMerge } from 'tailwind-merge';
 import { RxCaretLeft,RxCaretRight } from 'react-icons/rx';
 import Button from './Button';
-import { HiHome } from 'react-icons/hi';
-import { BiSearch } from 'react-icons/bi';
 import useAuthModal from '@/hooks/useAuthModal';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useUser } from '@/hooks/useUser';
@@ -15,8 +13,7 @@ import { toast } from 'react-hot-toast';
 import usePlayer from '@/hooks/usePlayer';
 import Link from 'next/link';
 import Image from 'next/image';
-import {MdMenu,MdMenuOpen} from 'react-icons/md'
-import { IoCreateOutline } from 'react-icons/io5';
+import {MdMenu} from 'react-icons/md'
 import useToggleSideBar from '@/hooks/useToggleSideBar';
 
 
@@ -46,6 +43,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     }
   }
 
+ 
   
   return (
     <div className={twMerge(`
@@ -180,11 +178,18 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
           onClick={()=> router.push('/account')}
           className='
           bg-white
-          px-2
-          py-2
+          py-0
+          px-0
           '
           >
-          <FaUserAlt/>
+          {user.user_metadata.avatar_url ?
+          <Image 
+          className=' rounded-full object-cover'
+          alt='user'
+          width={35}
+          height={35}
+          src={user.user_metadata.avatar_url}
+          /> : <FaUserAlt className=' m-2'/>}
           </Button>
         </div>
       ): (

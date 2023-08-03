@@ -11,6 +11,7 @@ import Slider from "./Slider";
 import usePlayer from "@/hooks/usePlayer";
 import { useEffect, useState } from "react";
 import useSound from "use-sound";
+import {formatTime} from '@/libs/helpers';
 
 interface PlayerContentProps {
     song: Song;
@@ -23,6 +24,7 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
     const [isPlaying, setIsPlaying] = useState(false);
     const Icon = isPlaying ? BsPauseFill : BsPlayFill;
     const VolumenIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
+     const [currentTime, setCurrentTime] = useState(0);
 
     const onPlayNext = ()=>{
         if (player.ids.length===0) {
@@ -68,11 +70,18 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
 
     useEffect(() => {
         sound?.play();
+         const interval = setInterval(() => {
+      if (sound?.playing()) {
+        setCurrentTime(sound.seek());
+      }
+    }, 1000);
       return () => {
         sound?.unload();
+        clearInterval(interval);
       }
     }, [sound])
-    
+
+
     const handlePlay = ()=>{
         if (!isPlaying) {
             play();
@@ -90,17 +99,50 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
     }
 
   return (
+    <>
+     <div
+        className="
+        relative
+        w-full
+      "
+      >
+        {/* Timeline input */}
+        <input
+          type="range"
+          min={0}
+          max={sound?.duration() || 0}
+          value={currentTime}
+          onChange={(e) => {
+            setCurrentTime(Number(e.target.value));
+            sound?.seek(Number(e.target.value));
+          }}
+          className="
+          absolute
+          top-[-10px]
+          appearance-none
+          w-full
+          h-1
+        bg-neutral-500
+          outline-none
+          cursor-pointer
+          transition
+        "
+        />
+      </div>
+    
     <div className="
     grid
     grid-cols-2
     md:grid-cols-3
     h-full
     ">
+
         {/* Media Items */}
         <div className="
         flex
         w-full
         justify-start
+        px-4
         ">
             <div className="
             flex
@@ -108,7 +150,17 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
             gap-x-4
             ">
                 <MediaItem data={song}/>
-                <LikeButton songId={song.id}/> 
+                <LikeButton songId={song.id}/>
+
+                <div className=" flex w-full h-5 items-center justify-between px-4">
+                    <span className="mr-1 text-sm text-neutral-500">
+                    {formatTime(currentTime)}
+                    </span>
+                    <span className="text-sm text-neutral-500">/</span>
+                    <span className="ml-1 text-sm text-neutral-500">
+                    {formatTime(sound?.duration() || 0)}
+                    </span>
+                </div> 
             </div>
         </div>
         {/* Play Controlls Mobile */}
@@ -119,6 +171,7 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
         w-full
         justify-end
         items-center
+        px-4
         ">
             <div 
             onClick={handlePlay}
@@ -135,6 +188,7 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
             ">
                 <Icon size={30} className="text-black"/>
             </div>
+
         </div>
         {/* Play Controlls PC */}
         <div className="
@@ -209,7 +263,11 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
             </div>
         </div>
 
+
+       
+
     </div>
+    </>
   )
 }
 

@@ -42,3 +42,10 @@ export const toDateTime = (secs: number) => {
   t.setSeconds(secs);
   return t;
 };
+
+export function formatTime(timeInSeconds: number): string {
+  const minutes: number = Math.floor(timeInSeconds / 60);
+  const seconds: number = Math.floor(timeInSeconds % 60);
+  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
+

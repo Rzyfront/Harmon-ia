@@ -20,9 +20,7 @@ if (!song || !songUrl || !player.activeId) {
     bottom-0
     bg-black
     w-full
-    py-2
     h-[90px]
-    px-4
     ">
     <PlayerContent
     key={songUrl}
