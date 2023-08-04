@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <Head>
-         <link rel="icon" href="/images/FaviconHarmonia.ico" />
+        <link rel="icon" type="image/ico" href="/images/FaviconHarmonia.ico" />
       </Head>
       <body className={font.className}>
         <ToasterProvider/>
