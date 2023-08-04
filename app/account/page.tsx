@@ -4,6 +4,8 @@ import AccountContent from './components/AccountContent'
 import UserInfo from './components/UserInfo'
 
 function Account() {
+
+  
   
   return (
     <div className=' bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto'>
@@ -18,6 +20,7 @@ function Account() {
         </Header>
 
         <AccountContent />
+
     </div>
   )
 }

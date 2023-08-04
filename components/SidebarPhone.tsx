@@ -18,7 +18,6 @@ interface SidebarPhoneProps {
 }
 
 function SidebarPhone({songs}: SidebarPhoneProps) {
-    console.log('SidebarPhone se monto')
     const router = useRouter();
     const pathname = usePathname();
     const toggleSidebar = useToggleSideBar();  

@@ -4,8 +4,10 @@ import Button from "@/components/Button";
 import useSubscribeModal from "@/hooks/useSubscribeModal";
 import { useUser } from "@/hooks/useUser";
 import { postData } from "@/libs/helpers";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react";
+import usePlayer from '@/hooks/usePlayer';
 import { toast } from "react-hot-toast";
 
 function AccountContent() {
@@ -14,7 +16,20 @@ function AccountContent() {
     const subscribeModal = useSubscribeModal();
     const {isLoading, subscription, user} = useUser();
     const [loading, setLoading] = useState(false);
- 
+    const  supabaseClient = useSupabaseClient();
+    const player = usePlayer();
+
+    const handleLogout = async () =>{
+    
+    const { error }  = await supabaseClient.auth.signOut();
+    player.reset();
+    router.refresh(); 
+    if(error){
+      toast.error(error.message);
+    }else{
+      toast.success('Logged out successfully')
+    }
+  }
 
     useEffect(()=>{
         if(!isLoading && ! user) router.replace('/');
@@ -61,7 +76,7 @@ function AccountContent() {
         {!subscription && (
             <div className=" flex flex-col gap-y-4">
                 <p>No active plan.</p>
-                <Button className=" w-[300px]" onClick={subscribeModal.onOpen}>
+                <Button title="Subscribe" className=" w-[300px]" onClick={subscribeModal.onOpen}>
                     Subscribe
                 </Button>
             </div>
@@ -71,9 +86,21 @@ function AccountContent() {
                 <p>You are currently on the <b>{subscription?.prices?.products?.name}</b> plan.</p>
                 <p className=" text-blue-500 hover:text-red-500 active:text-red-500 cursor-pointer">Your subscription will expire: {day}/{month}/{year} at {hour}:{minute}
                 </p>
-                <Button className=" w-[300px]" onClick={redirectToCustomerPortal}
+                <Button title="Customer Portal" className=" w-[300px]" onClick={redirectToCustomerPortal}
                 disabled={loading || isLoading}>
                     Open customer portal
+                </Button>
+                <Button
+                title="Logout"
+                onClick={handleLogout}
+                className='
+                bg-white
+                px-1
+                py-1
+                w-[200px]
+                '
+                >
+                Logout
                 </Button>
             </div>
         )}

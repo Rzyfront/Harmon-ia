@@ -16,6 +16,7 @@ function SongItem({data, onClick}: SongItemProps) {
 
   return (
     <div
+    title={data.title}
     onClick={() => onClick(data.id)} 
     className='
     relative
@@ -68,7 +69,7 @@ function SongItem({data, onClick}: SongItemProps) {
           w-full
           '>{data.author}</p> 
         </div>
-        <div className='
+        <div title='Play song' className='
         absolute
         bottom-24
         right-5

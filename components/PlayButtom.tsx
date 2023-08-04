@@ -3,7 +3,7 @@ import { FaPlay } from 'react-icons/fa'
 
 function PlayButtom() {
   return (
-    <button className='
+    <div className='
     transition
     opacity-0
     rounded-full
@@ -19,7 +19,7 @@ function PlayButtom() {
     hover:scale-110
     '>
         <FaPlay className='text-black'/>
-    </button>
+    </div>
   )
 }
 

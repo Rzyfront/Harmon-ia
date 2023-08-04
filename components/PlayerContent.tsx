@@ -129,6 +129,15 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
         "
         />
       </div>
+
+                    <div className="flex md:hidden w-full h-1 px-4 justify-between">
+                        <span className="mr-1 text-sm text-neutral-500">
+                        {formatTime(currentTime)}
+                        </span>
+                        <span className="ml-1 text-sm text-neutral-500">
+                        {formatTime(sound?.duration() || 0)}
+                        </span>
+                    </div> 
     
     <div className="
     grid
@@ -142,7 +151,8 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
         flex
         w-full
         justify-start
-        px-4
+        px-2
+        md:px-4
         ">
             <div className="
             flex
@@ -152,15 +162,16 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
                 <MediaItem data={song}/>
                 <LikeButton songId={song.id}/>
 
-                <div className=" flex w-full h-5 items-center justify-between px-4">
-                    <span className="mr-1 text-sm text-neutral-500">
-                    {formatTime(currentTime)}
-                    </span>
-                    <span className="text-sm text-neutral-500">/</span>
-                    <span className="ml-1 text-sm text-neutral-500">
-                    {formatTime(sound?.duration() || 0)}
-                    </span>
-                </div> 
+                    <div className="hidden md:flex w-full h-5 items-center justify-between px-4">
+                        <span className="mr-1 text-sm text-neutral-500">
+                        {formatTime(currentTime)}
+                        </span>
+                        <span className="text-sm text-neutral-500">/</span>
+                        <span className="ml-1 text-sm text-neutral-500">
+                        {formatTime(sound?.duration() || 0)}
+                        </span>
+                    </div> 
+               
             </div>
         </div>
         {/* Play Controlls Mobile */}

@@ -57,7 +57,6 @@ const Sidebar: React.FC<SidebarProps> = ({children, songs}) => {
             router.refresh();
         }
     }
-    console.log(toggleSideBar.isOpen)
     return (
 
     <div className={twMerge(`

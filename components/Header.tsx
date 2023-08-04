@@ -6,11 +6,8 @@ import { twMerge } from 'tailwind-merge';
 import { RxCaretLeft,RxCaretRight } from 'react-icons/rx';
 import Button from './Button';
 import useAuthModal from '@/hooks/useAuthModal';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useUser } from '@/hooks/useUser';
 import { FaUserAlt } from 'react-icons/fa';
-import { toast } from 'react-hot-toast';
-import usePlayer from '@/hooks/usePlayer';
 import Link from 'next/link';
 import Image from 'next/image';
 import {MdMenu} from 'react-icons/md'
@@ -24,24 +21,13 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({children,className}) => {
 
-  const player = usePlayer();
+
   const router = useRouter();
   const { onOpen } = useAuthModal();
-  const  supabaseClient = useSupabaseClient();
   const { user } = useUser();
   const toggleSideBar = useToggleSideBar();
 
-  const handleLogout = async () =>{
-    
-    const { error }  = await supabaseClient.auth.signOut();
-    player.reset();
-    router.refresh(); 
-    if(error){
-      toast.error(error.message);
-    }else{
-      toast.success('Logged out successfully')
-    }
-  }
+
 
  
   
@@ -72,7 +58,8 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     items-center
     '>
 
-    <button 
+    <div 
+    title='Go to back'
     onClick={()=> router.back()}
     className='
     rounded-full
@@ -85,9 +72,10 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     '
     >
       <RxCaretLeft className='text-white' size={30}/>
-    </button>
+    </div>
 
-       <button 
+       <div 
+       title='Go to forward'
     onClick={()=> router.forward()}
     className='
     rounded-full
@@ -100,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
     '
     >
       <RxCaretRight className='text-white' size={30}/>
-    </button>
+    </div>
 
     </div>
 
@@ -114,6 +102,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       <div className=' flex items-center justify-start gap-x-0 md:gap-x-2'>
       
       <div 
+      title='Menu'
       onClick={toggleSideBar.openSidebar}
       className=' flex items-center justify-center w-[40px] h-[40px] md:w-[50px] md:h-[50px] hover:opacity-80  hover:bg-blue-600
       active:bg-blue-600 rounded-md'>
@@ -125,6 +114,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       </div>
       
          <Link
+         title='Home page'
       href={'/'}
       className='
       rounded-md
@@ -165,16 +155,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
         items-center
         '>
           <Button
-          onClick={handleLogout}
-          className='
-          bg-white
-          px-4
-          py-1
-          '
-          >
-          Logout
-          </Button>
-          <Button
+          title='Account Settings'
           onClick={()=> router.push('/account')}
           className='
           bg-white
@@ -207,7 +188,7 @@ const Header: React.FC<HeaderProps> = ({children,className}) => {
       </Button>
     </div> */}
     <div className=' flex items-center justify-center p-1'>
-      <Button className='
+      <Button title='Login' className='
       bg-white
       px-4
       py-1
