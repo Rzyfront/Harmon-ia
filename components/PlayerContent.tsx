@@ -3,7 +3,7 @@
 import { Song } from "@/types"
 import MediaItem from "./MediaItem";
 import LikeButton from "./LikeButton";
-
+import {ImSpinner2} from 'react-icons/im'
 import {BsPauseFill,BsPlayFill} from "react-icons/bs"
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import {HiSpeakerXMark,HiSpeakerWave} from 'react-icons/hi2';
@@ -22,6 +22,7 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
     const player = usePlayer();
     const [volume, setVolume] = useState(1);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const Icon = isPlaying ? BsPauseFill : BsPlayFill;
     const VolumenIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
      const [currentTime, setCurrentTime] = useState(0);
@@ -56,20 +57,42 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
 
         player.setId(previousSong);
     };
+    
 
-    const [play, { pause, sound}] = useSound(songUrl, {
-        volume:volume,
-        onplay: () => setIsPlaying(true),
-        onend: () => {
-            setIsPlaying(false);
-            onPlayNext();
-        },
-        onpause: () => setIsPlaying(false),
-        format: ['mp3']
-    })
+     const [play, { pause, sound }] = useSound(
+    songUrl,
+    {
+      volume: volume,
+      onplay: () => {
+        setIsPlaying(true),
+        setIsLoading(false)
+      },
+      onend: () => {
+        setIsPlaying(false),
+        onPlayNext()
+      },
+      onload: () => {
+        setIsLoading(false);
+      },
+      onstop: () => {
+        setIsPlaying(false);
+        setIsLoading(false);
+      },
+      onpause: () => {
+        setIsPlaying(false);
+        setIsLoading(false);
+      },
+      onresume: () => {
+        setIsPlaying(true);
+        setIsLoading(false);
+      },
+      format: ["mp3"],
+    }
+  );
 
     useEffect(() => {
         sound?.play();
+        setIsLoading(true);
          const interval = setInterval(() => {
       if (sound?.playing()) {
         setCurrentTime(sound.seek());
@@ -82,13 +105,16 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
     }, [sound])
 
 
-    const handlePlay = ()=>{
-        if (!isPlaying) {
-            play();
-        }else{
-            pause();
-        }
+
+    const handlePlay = () => {
+    if (!isPlaying) {
+      setIsLoading(true);
+      play();
+    } else {
+      setIsLoading(false);
+      pause();
     }
+  };
 
     const toggleMute = ()=>{
         if (volume === 0) {
@@ -122,10 +148,28 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
           appearance-none
           w-full
           h-1
-        bg-neutral-500
+          bg-neutral-500
           outline-none
           cursor-pointer
           transition
+          &::-webkit-slider-thumb {
+              background-color: #3B82F6;
+              width: 16px;
+              height: 16px;
+              border-radius: 50%;
+              cursor: pointer;
+              -webkit-appearance: none;
+              margin-top: -7px;
+            }
+            &::-moz-range-thumb {
+              background-color: #3B82F6;
+              width: 16px;
+              height: 16px;
+              border: none;
+              border-radius: 50%;
+              cursor: pointer;
+              margin-top: -7px;
+            }
         "
         />
       </div>
@@ -155,10 +199,12 @@ function PlayerContent({song, songUrl}: PlayerContentProps) {
         md:px-4
         ">
             <div className="
+            relative
             flex
             items-center
             gap-x-4
             ">
+                {isLoading && <ImSpinner2 size={40} className=' absolute left-3 animate-spin text-blue-500 z-50'/>}
                 <MediaItem data={song}/>
                 <LikeButton songId={song.id}/>
 
